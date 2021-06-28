@@ -137,6 +137,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {
         abi {
@@ -199,6 +200,14 @@ dependencies {
         exclude group:'com.facebook.flipper'
     }
     addUnimodulesDependencies()
+
+    implementation (project(':react-native-camera')) {
+        exclude group: "com.google.android.gms"
+        implementation 'com.android.support:exifinterface:27.+'
+        implementation ('com.google.android.gms:play-services-vision:17.0.2') {
+            force = true
+        }
+    }
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
